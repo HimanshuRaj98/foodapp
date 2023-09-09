@@ -3,8 +3,10 @@ import { GrClose } from "react-icons/gr";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ItemCart from "./ItemCart";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const Cart = () => {
-  const [activeCart, setActiveCart] = useState(true);
+  const [activeCart, setActiveCart] = useState(false);
   const cartItems = useSelector((state) => state.cart.cart);
   const totalquantity = cartItems.reduce(
     (totalquantity, item) => totalquantity + item.quantity,
@@ -14,6 +16,7 @@ const Cart = () => {
     (total, item) => total + item.quantity * item.price,
     0
   );
+  const navigate = useNavigate();
   // console.log(cartItems);
   return (
     <>
@@ -52,7 +55,10 @@ const Cart = () => {
             Total Amount : ₹{totalPrice}
           </h3>
           <hr className=" w-[90vw] lg:w-[18vw]" />
-          <button className=" bg-green-500 text-white font-bold px-3 py-2 rounded-lg lg:w-[18vw] w-[90vw] items-center">
+          <button
+            onClick={() => navigate("/access")}
+            className=" bg-green-500 text-white font-bold px-3 py-2 rounded-lg lg:w-[18vw] w-[90vw] items-center"
+          >
             Checkout
           </button>
         </div>

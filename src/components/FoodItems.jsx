@@ -8,6 +8,7 @@ const FoodItems = () => {
     toast.success(`${name} Added In Cart`);
   };
 
+  const Search = useSelector((state) => state.search.search);
   const category = useSelector((state) => state.category.category);
   return (
     <>
@@ -15,9 +16,12 @@ const FoodItems = () => {
       <div className="flex flex-wrap gap-5 justify-center lg:justify-start mt-3">
         {FoodData.filter((food) => {
           if (category === "All") {
-            return food;
+            return food.name.toLowerCase().includes(Search.toLowerCase());
           } else {
-            return category === food.category;
+            return (
+              category === food.category &&
+              food.name.toLowerCase().includes(Search.toLowerCase())
+            );
           }
         }).map((food) => (
           <FoodCards
